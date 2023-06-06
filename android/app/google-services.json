@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "337056061459",
+    "project_id": "rigsat",
+    "storage_bucket": "rigsat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:337056061459:android:ad394be1f6cf7810ce07e6",
+        "android_client_info": {
+          "package_name": "com.emaren.rigsat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "337056061459-hrdfg0hkcp9fiajb8ej6mb9s2an1t83n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLDoy_fnvxeOl3bgBPPmGwC_pb9D32ULI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "337056061459-hrdfg0hkcp9fiajb8ej6mb9s2an1t83n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "337056061459-dckt7me557oakk2k18t878764r7pbudk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.emaren.rigsat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
