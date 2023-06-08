@@ -25,8 +25,8 @@ Future<TimeOfDay?> showCustomTimePicker(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color.fromARGB(255, 71, 72, 111),
-              Color.fromARGB(255, 40, 40, 40)
+              Color.fromARGB(255, 72, 95, 105),
+              Color.fromARGB(185, 60, 73, 86)
             ],
           ),
         ),

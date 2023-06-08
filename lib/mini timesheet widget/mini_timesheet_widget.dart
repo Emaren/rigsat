@@ -80,7 +80,7 @@ class _MiniTimesheetWidgetState extends State<MiniTimesheetWidget> {
   Widget build(BuildContext context) {
     DateTime currentPayPeriodStart = calculateStartDate();
     DateTime currentPayPeriodEnd =
-        currentPayPeriodStart.add(const Duration(days: 14));
+        currentPayPeriodStart.add(const Duration(days: 15));
 
     return SingleChildScrollView(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -314,7 +314,7 @@ class _MiniTimesheetWidgetState extends State<MiniTimesheetWidget> {
                 if (widget.displayDeleteIcon)
                   IconButton(
                     icon: const Icon(Icons.cancel,
-                        color: Color.fromARGB(255, 188, 6, 6)),
+                        color: Color.fromARGB(255, 186, 0, 0)),
                     iconSize: 30.0,
                     onPressed: () async {
                       if (docId != null) {

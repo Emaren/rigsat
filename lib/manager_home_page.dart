@@ -35,6 +35,7 @@ class _ManagerHomePageState extends State<ManagerHomePage> {
     'Owner',
     'Manager',
     'Administration',
+    'Accounting',
     'Secretary',
     'Sales',
     'Supervisor',
@@ -90,6 +91,7 @@ class _ManagerHomePageState extends State<ManagerHomePage> {
                             'Owner',
                             'Manager',
                             'Administration',
+                            'Accounting',
                             'Secretary',
                             'Sales',
                             'Supervisor',
@@ -154,8 +156,7 @@ class _ManagerHomePageState extends State<ManagerHomePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.person_add_alt_1,
-                              size: 48,
-                              color: Color.fromARGB(255, 132, 14, 14)),
+                              size: 48, color: Color.fromARGB(255, 164, 5, 5)),
                           SizedBox(height: 16),
                           Text(
                             'Create User',

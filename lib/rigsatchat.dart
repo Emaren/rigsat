@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -73,7 +74,6 @@ class _RigSatChatState extends State<RigSatChat> {
                 color: Colors.black,
               ),
             ),
-            // Add more TextSpans for links, images, and videos as needed
           ],
         ),
       );
@@ -130,11 +130,8 @@ class _RigSatChatState extends State<RigSatChat> {
     final uploadTask = ref.putFile(videoFile);
     final snapshot = await uploadTask;
     if (snapshot.state == TaskState.success) {
-      // The file was successfully uploaded.
       final videoUrl = await snapshot.ref.getDownloadURL();
-      // Use the videoUrl to send the message
     } else {
-      // Handle the upload failure
       print('File upload failed with state: ${snapshot.state}');
     }
 
@@ -234,6 +231,9 @@ class _RigSatChatState extends State<RigSatChat> {
                       decoration: const InputDecoration(
                         hintText: 'Type your message',
                       ),
+                      onSubmitted: (_) {
+                        _sendMessage(text: _messageController.text);
+                      },
                     ),
                   ),
                   IconButton(

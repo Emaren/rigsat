@@ -19,13 +19,15 @@ class AuthService with ChangeNotifier {
   String? getRole() => role;
 
   AuthService() {
+    print('Initializing AuthService...');
     _auth.authStateChanges().listen((User? user) {
       if (user == null) {
         _user = null;
+        print('No user currently signed in.');
       } else {
         _user = user;
+        print('User signed in: ${user.uid}');
       }
-
       notifyListeners();
     });
   }
@@ -93,8 +95,13 @@ class AuthService with ChangeNotifier {
 
         DocumentSnapshot userDoc =
             await _userCollection.doc(userCredential.user?.uid).get();
-        this.displayName = userDoc.get('displayName');
-        this.role = userDoc.get('role');
+
+        Map<String, dynamic>? data = userDoc.data() as Map<String, dynamic>?;
+
+        if (data != null) {
+          this.displayName = data['displayName'];
+          this.role = data['role'];
+        }
 
         notifyListeners();
       }
@@ -110,18 +117,30 @@ class AuthService with ChangeNotifier {
 
   Future<void> signIn(String email, String password) async {
     try {
+      print('Attempting to sign in user: $email...');
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
 
       DocumentSnapshot userDoc =
           await _userCollection.doc(userCredential.user?.uid).get();
-      displayName = userDoc.get('displayName');
-      firstName = userDoc.get('firstName');
-      role = userDoc.get('role');
+
+      Map<String, dynamic>? data = userDoc.data() as Map<String, dynamic>?;
+
+      if (data != null) {
+        displayName = data['displayName'] ?? 'N/A';
+        firstName = data['firstName'] ?? 'N/A';
+        role = data['role'] ?? 'N/A';
+      }
+
+      print(
+          'User signed in successfully: ID=${userCredential.user?.uid}, displayName=$displayName, firstName=$firstName, role=$role');
 
       notifyListeners();
     } on FirebaseAuthException catch (e) {
-      print(e.message);
+      print('Failed to sign in user: ${e.code}, ${e.message}');
+      notifyListeners();
+    } catch (e) {
+      print('An unknown error occurred: $e');
       notifyListeners();
     }
   }
@@ -140,9 +159,13 @@ class AuthService with ChangeNotifier {
     if (currentUser != null) {
       DocumentSnapshot userDoc =
           await _userCollection.doc(currentUser.uid).get();
-      displayName = userDoc.get('displayName');
-      firstName = userDoc.get('firstName');
-      role = userDoc.get('role');
+      Map<String, dynamic>? data = userDoc.data() as Map<String, dynamic>?;
+      if (data != null) {
+        displayName = data['displayName'] ?? 'N/A';
+        firstName = data['firstName'] ?? 'N/A';
+        role = data['role'] ?? 'N/A';
+      }
+
       print(
           'User info signin in: displayName=$displayName, firstName=$firstName, role=$role');
       return {'displayName': displayName, 'firstName': firstName, 'role': role};

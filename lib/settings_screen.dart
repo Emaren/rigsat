@@ -128,7 +128,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ElevatedButton(
             onPressed: _navigateToDeleteAccountPage,
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromARGB(255, 212, 193, 191),
+              backgroundColor: const Color.fromARGB(255, 200, 28, 9),
             ),
             child: const Text('Delete Account'),
           ),

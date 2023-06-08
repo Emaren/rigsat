@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:video_player/video_player.dart';
@@ -18,11 +20,16 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(widget.url)
-      ..initialize().then((_) {
-        // Ensure the initial display is as expected by forcing a refresh of the widget.
-        setState(() {});
+    _controller = VideoPlayerController.network(widget.url);
+
+    if (!Platform.isMacOS) {
+      _controller.initialize().then((_) {
+        setState(() {
+          _isPlaying = true;
+        });
+        _controller.play();
       });
+    }
   }
 
   @override

@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'package:provider/provider.dart';
+import 'package:rigsat/products/first_screen.dart';
 import 'package:rigsat/r_and_d/feature_request_screen.dart';
-import 'package:rigsat/manager_home_page.dart';
 import 'assets.dart';
 import 'auth_service.dart';
 import 'firestore_mini_timesheet_widget.dart';
 import 'log_out_page.dart';
 import 'employee_home_page.dart';
 import 'customer_home_page.dart';
+import 'manager_home_page.dart';
 import 'rigsatchat.dart';
+import 'services/second_screen.dart';
 import 'settings_screen.dart';
 import 'tickets.dart';
 import 'timesheets.dart';
@@ -47,12 +49,6 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
         builder: (BuildContext context,
             AsyncSnapshot<Map<String, String?>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            // return Center(
-            //   child: SpinKitPulsingGrid(
-            //     color: Color.fromARGB(255, 27, 2, 191),
-            //     size: 50.0,
-            //   ),
-            // );
             return const Center(
               child: SpinKitFadingGrid(
                 color: Color.fromARGB(255, 27, 2, 191),
@@ -75,10 +71,11 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
               case 'Owner':
               case 'Manager':
               case 'Administration':
+              case 'Accounting':
               case 'Secretary':
               case 'Supervisor':
                 homePage = const ManagerHomePage(
-                  // homePage = FeatureRequestScreen(
+                  // homePage = const FeatureRequestScreen(
                   uid: '',
                 );
                 break;
@@ -88,7 +85,10 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
                   role: '',
                 );
                 break;
+              case 'Client':
               case 'Customer':
+              case 'Vendor':
+              case 'Guest':
                 homePage = const CustomerHomePage();
                 break;
               default:
@@ -119,15 +119,15 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
                   body: homePage,
                 ),
               ),
-              ScreenHiddenDrawer(
-                ItemHiddenMenu(
-                    name: 'Timesheets',
-                    baseStyle: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 19),
-                    selectedStyle: const TextStyle(color: Colors.white)),
-                const Timesheets(),
-              ),
-              if (['Admin', 'Owner', 'Manager'].contains(role)) ...[
+              if ([
+                'Admin',
+                'Owner',
+                'Manager',
+                'Administration',
+                'Accounting',
+                'Secretary',
+                'Supervisor'
+              ].contains(role)) ...[
                 ScreenHiddenDrawer(
                   ItemHiddenMenu(
                       name: 'Review Hours',
@@ -141,37 +141,104 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
                   ),
                 ),
               ],
-              ScreenHiddenDrawer(
+              if (role == 'Admin' ||
+                  role == 'Owner' ||
+                  role == 'Manager' ||
+                  role == 'Employee' ||
+                  role == 'Sales') ...[
+                ScreenHiddenDrawer(
                   ItemHiddenMenu(
-                      name: 'Assets',
+                      name: 'Timesheets',
                       baseStyle: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 19),
                       selectedStyle: const TextStyle(color: Colors.white)),
-                  const Assets(
-                    title: '',
-                    userDocRef: null,
-                  )),
-              ScreenHiddenDrawer(
+                  const Timesheets(),
+                ),
+                ScreenHiddenDrawer(
+                    ItemHiddenMenu(
+                        name: 'Assets',
+                        baseStyle: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 19),
+                        selectedStyle: const TextStyle(color: Colors.white)),
+                    const Assets(
+                      title: '',
+                      userDocRef: null,
+                    )),
+                ScreenHiddenDrawer(
+                    ItemHiddenMenu(
+                        name: 'Tickets',
+                        baseStyle: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 19),
+                        selectedStyle: const TextStyle(color: Colors.white)),
+                    const Tickets()),
+                ScreenHiddenDrawer(
+                    ItemHiddenMenu(
+                        name: 'RigSatChat',
+                        baseStyle: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 19),
+                        selectedStyle: const TextStyle(color: Colors.white)),
+                    const RigSatChat()),
+                ScreenHiddenDrawer(
+                    ItemHiddenMenu(
+                        name: 'R&D',
+                        baseStyle: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 19),
+                        selectedStyle: const TextStyle(color: Colors.white)),
+                    const FeatureRequestScreen()),
+                ScreenHiddenDrawer(
                   ItemHiddenMenu(
-                      name: 'Tickets',
+                      name: 'Rentals',
                       baseStyle: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 19),
                       selectedStyle: const TextStyle(color: Colors.white)),
-                  const Tickets()),
-              ScreenHiddenDrawer(
+                  const Scaffold(
+                    body: Center(
+                      child: FirstScreen(),
+                    ),
+                  ),
+                ),
+                ScreenHiddenDrawer(
                   ItemHiddenMenu(
-                      name: 'RigSatChat',
+                      name: 'Services',
                       baseStyle: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 19),
                       selectedStyle: const TextStyle(color: Colors.white)),
-                  const RigSatChat()),
-              ScreenHiddenDrawer(
+                  const Scaffold(
+                    body: Center(
+                      child: SecondScreen(),
+                    ),
+                  ),
+                ),
+              ],
+              if (role == 'Client' ||
+                  role == 'Customer' ||
+                  role == 'Vendor' ||
+                  role == 'Guest') ...[
+                ScreenHiddenDrawer(
                   ItemHiddenMenu(
-                      name: 'R&D',
+                      name: 'Rentals',
                       baseStyle: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 19),
                       selectedStyle: const TextStyle(color: Colors.white)),
-                  const FeatureRequestScreen()),
+                  const Scaffold(
+                    body: Center(
+                      child: FirstScreen(),
+                    ),
+                  ),
+                ),
+                ScreenHiddenDrawer(
+                  ItemHiddenMenu(
+                      name: 'Services',
+                      baseStyle: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 19),
+                      selectedStyle: const TextStyle(color: Colors.white)),
+                  const Scaffold(
+                    body: Center(
+                      child: SecondScreen(),
+                    ),
+                  ),
+                ),
+              ],
               ScreenHiddenDrawer(
                   ItemHiddenMenu(
                       name: 'Settings',
@@ -186,9 +253,6 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
                           fontWeight: FontWeight.bold, fontSize: 19),
                       colorLineSelected: Colors.blue,
                       selectedStyle: const TextStyle(color: Colors.white)),
-                  // baseStyle: baseStyle,
-                  // selectedStyle: baseStyle,
-                  // ),
                   const LogOutPage())
             ];
 

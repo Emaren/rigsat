@@ -2,14 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-<key>NSPhotoLibraryUsageDescription</key>
-<string>RigSat requires access to your photo library to allow you to choose photos for uploading and sharing within the app.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>RigSat needs access to your photo library so you can select photos to upload and share in the RigSatChat feature. Photos selected by you will only be used for this purpose and will not be stored or used elsewhere.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Rigsat</string>
+	<string>RigSat</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

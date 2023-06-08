@@ -21,7 +21,7 @@ class LogOutPage extends StatelessWidget {
               onPressed: () async {
                 context.read<AuthService>().signOut(context);
               },
-              child: const Text('Logout'),
+              child: const Text('Log Out'),
             ),
           ],
         ),

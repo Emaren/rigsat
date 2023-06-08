@@ -86,6 +86,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       'Owner',
                       'Manager',
                       'Administration',
+                      'Accounting',
                       'Secretary',
                       'Sales',
                       'Supervisor',
